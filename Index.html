@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOMBIES TERMINUS - COD BO6</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: #f4f4f9;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            background: #ffffff;
+            text-align: center;
+        }
+        h2 {
+            color: #333333;
+        }
+        .image-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .image-buttons button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            outline: none;
+        }
+        .image-buttons img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .image-buttons img:hover {
+            transform: scale(1.1);
+        }
+        .btn-calculate {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-calculate:hover {
+            background-color: #45a049;
+        }
+        .result, .selected-values {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #e8f5e9;
+            color: #333333;
+        }
+        .language-toggle {
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #007BFF;
+            text-decoration: underline;
+        }
+        .footer-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="title">Calculadora ZOMBIES - TERMINUS</h2>
+        
+        <p id="instruction">Escolha as formas na mesma ordem que aparece na sua partida e depois clique em calcular!</p>
+
+        <div class="image-buttons">
+            <!-- Substitua src pelo caminho das imagens e altere os valores conforme necessário -->
+            <button onclick="setValue(0)"><img src="btn1.png" alt="Imagem 1"></button>
+            <button onclick="setValue(11)"><img src="btn2.png" alt="Imagem 2"></button>
+            <button onclick="setValue(10)"><img src="btn3.png" alt="Imagem 3"></button>
+            <button onclick="setValue(20)"><img src="btn4.png" alt="Imagem 4"></button>
+            <button onclick="setValue(21)"><img src="btn5.png" alt="Imagem 5"></button>
+            <button onclick="setValue(22)"><img src="btn6.png" alt="Imagem 6"></button>
+        </div>
+        
+        <!-- Exibe os valores selecionados -->
+        <div class="selected-values">
+            <p id="value-x">Valor de X: -</p>
+            <p id="value-y">Valor de Y: -</p>
+            <p id="value-z">Valor de Z: -</p>
+        </div>
+
+        <button class="btn-calculate" onclick="calcular()">Calcular</button>
+        
+        <div id="result1" class="result"></div>
+        <div id="result2" class="result"></div>
+        <div id="result3" class="result"></div>
+
+        <p class="language-toggle" onclick="toggleLanguage()">English Version</p>
+        
+        <div class="footer-text" id="footer-text">
+            Me ajude a manter o site no ar clicando aqui !  <a href="https://livepix.gg/waglzg" target="_blank">(DOAR)</a>
+        </div>
+    </div>
+
+    <script>
+        let step = 1;  // Controla qual valor está sendo definido (X, Y, ou Z)
+        let x, y, z;   // Variáveis para armazenar os valores de X, Y e Z
+        let isPortuguese = true;
+
+        function setValue(value) {
+            if (step === 1) {
+                x = value;
+                document.getElementById("value-x").innerText = isPortuguese ? `Valor de X: ${x}` : `Value of X: ${x}`;
+                step++;
+            } else if (step === 2) {
+                y = value;
+                document.getElementById("value-y").innerText = isPortuguese ? `Valor de Y: ${y}` : `Value of Y: ${y}`;
+                step++;
+            } else if (step === 3) {
+                z = value;
+                document.getElementById("value-z").innerText = isPortuguese ? `Valor de Z: ${z}` : `Value of Z: ${z}`;
+                step = 4;  // Bloqueia mais seleções
+            } else {
+                alert(isPortuguese ? "Você já escolheu os valores para X, Y e Z. Clique em 'Calcular' para ver o resultado." : "You have already chosen values for X, Y, and Z. Click 'Calculate' to see the result.");
+            }
+        }
+
+        function calcular() {
+            if (x === undefined || y === undefined || z === undefined) {
+                alert(isPortuguese ? "Por favor, selecione os valores de X, Y e Z." : "Please select values for X, Y, and Z.");
+                return;
+            }
+
+            // Realizar cálculos
+            const resultado1 = 2 * x + 11;
+            const resultado2 = 2 * z + y - 5; // Corrigido para 2.z + y - 5
+            const resultado3 = y + z - x;
+
+            // Exibir os resultados
+            document.getElementById("result1").innerText = isPortuguese ? `Resultado de 2x + 11: ${resultado1}` : `Result of 2x + 11: ${resultado1}`;
+            document.getElementById("result2").innerText = isPortuguese ? `Resultado de 2z + y - 5: ${resultado2}` : `Result of 2z + y - 5: ${resultado2}`;
+            document.getElementById("result3").innerText = isPortuguese ? `Resultado de y + z - x: ${resultado3}` : `Result of y + z - x: ${resultado3}`;
+        }
+
+        function toggleLanguage() {
+            isPortuguese = !isPortuguese;
+            document.getElementById("title").innerText = isPortuguese ? "Calculadora ZOMBIES - TERMINUS" : "ZOMBIES Calculator - TERMINUS";
+            document.getElementById("instruction").innerText = isPortuguese 
+                ? "Escolha as forma na mesma ordem que aparece na sua partida e depois clique em calcular!" 
+                : "Choose the shape in the same order as shown in your match, then click calculate!";
+            document.getElementById("value-x").innerText = isPortuguese ? "Valor de X: -" : "Value of X: -";
+            document.getElementById("value-y").innerText = isPortuguese ? "Valor de Y: -" : "Value of Y: -";
+            document.getElementById("value-z").innerText = isPortuguese ? "Valor de Z: -" : "Value of Z: -";
+            document.getElementById("footer-text").innerHTML = isPortuguese 
+                ? 'Me ajude a manter o site no ar clicando aqui ! <a href="https://livepix.gg/waglzg" target="_blank">(DOAR)</a>' 
+                : 'Help me keep the site up and running by clicking here!<a href="https://livepix.gg/waglzg" target="_blank">(DONATE)</a>';
+            document.querySelector(".language-toggle").innerText = isPortuguese ? "English Version" : "Versão em Português";
+        }
+    </script>
+</body>
+</html>
